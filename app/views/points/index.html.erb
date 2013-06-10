@@ -11,6 +11,20 @@
     
         $('#get_zoom').click(function(e){
             alert(Gmaps.map.map.getZoom());
+            var mapOptions = {
+                // zoom: 4,
+                // center: new google.maps.LatLng(-33, 151),
+                // mapTypeControl: true,
+                // mapTypeControlOptions: {
+                // style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+                // },
+                zoomControl: true,
+                zoomControlOptions: {
+                    style: google.maps.ZoomControlStyle.SMALL
+                },
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            Gmaps.map.map.setOptions(mapOptions);
             // var bounds = new google.maps.LatLngBounds();
             // var norte = new google.maps.LatLng(38.7779317, -9.2092897);
             // var sul = new google.maps.LatLng(37.0179538, -7.930834000000001);
