@@ -1,4 +1,7 @@
 class PointsController < ApplicationController
+
+  respond_to :json, :html
+
   # GET /points
   # GET /points.json
   def index
@@ -6,10 +9,11 @@ class PointsController < ApplicationController
     @json = Point.all.to_gmaps4rails
     puts "JSON #{@json}"
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @points }
-    end
+    respond_with @json
+    # respond_to do |format|
+    #   format.html # index.html.erb
+    #   format.json { render json: @points }
+    # end
   end
 
   # GET /points/1

@@ -1,4 +1,14 @@
-
+<script type="text/javascript" charset="utf-8" >
+    $(function(){
+        $('#refresh_button').click(function(){
+            $.getJSON("/points.json", function(data){
+                console.log("Esteve aqui");
+                console.log(data);
+                Gmaps.map.replaceMarkers(data);
+            });
+        });
+    });
+</script>
 
 <h1>Listing points</h1>
 
@@ -33,7 +43,8 @@
 <br />
 
 <%= link_to 'New Point', new_point_path %>
-<input type="button" value="Test" id="test" />
+
+<button id="refresh_button">Refresh</button>
 
 <!-- Helper para mostrar o mapa, passar opções aqui -->
 <%= gmaps(:markers => {
@@ -42,16 +53,16 @@
                 # :raw => '{ animation: google.maps.Animation.BOUNCE }' ,
                 # :rich_marker => true 
                 :do_clustering => true,
-                clusterer_maxZoom: 8 #define at which zoom level clusterer is disabled, default to 10
+                clusterer_maxZoom: 8, #define at which zoom level clusterer is disabled, default to 10
                 #:draggable #allow drag markers, default to false
                 #:clusterer_gridSize #the more the quicker but the less precise, default to 50
                 #:marker_picture
                 #:marker_width
                 #:marker_length
                 
-                #:randomize: false #Google maps can't display two markers which have the same coordinates. This randomizer enables to prevent this situation from happening.
+                randomize: true, #Google maps can't display two markers which have the same coordinates. This randomizer enables to prevent this situation from happening.
                 
-                #:max_random_distance: 100 #in meters. Each marker coordinate could be altered by this distance in a random direction
+                max_random_distance: 5 #in meters. Each marker coordinate could be altered by this distance in a random direction
                 
                 #:list_container: null #if a string is passed, it will be assumed that it's the id of the <ul> in which you want the list of markers to be included. Define gmaps4rails_sidebar method in your model to customize what you want to be displayed in each <li>
                 
