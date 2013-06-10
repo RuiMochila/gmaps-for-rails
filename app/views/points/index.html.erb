@@ -1,8 +1,11 @@
+
+
 <h1>Listing points</h1>
 
 <table>
   <tr>
     <th>Name</th>
+    <th>Description</th>
     <th>Address</th>
     <th>Longitude</th>
     <th>Latitude</th>
@@ -15,6 +18,7 @@
 <% @points.each do |point| %>
   <tr>
     <td><%= point.name %></td>
+    <td><%= point.description %></td>
     <td><%= point.address %></td>
     <td><%= point.longitude %></td>
     <td><%= point.latitude %></td>
@@ -29,4 +33,50 @@
 <br />
 
 <%= link_to 'New Point', new_point_path %>
-<%= gmaps4rails(@json) %>
+<input type="button" value="Test" id="test" />
+
+<!-- Helper para mostrar o mapa, passar opções aqui -->
+<%= gmaps(:markers => {
+                :data => @json, 
+                :options => { 
+                # :raw => '{ animation: google.maps.Animation.BOUNCE }' ,
+                # :rich_marker => true 
+                :do_clustering => true,
+                clusterer_maxZoom: 8 #define at which zoom level clusterer is disabled, default to 10
+                #:draggable #allow drag markers, default to false
+                #:clusterer_gridSize #the more the quicker but the less precise, default to 50
+                #:marker_picture
+                #:marker_width
+                #:marker_length
+                
+                #:randomize: false #Google maps can't display two markers which have the same coordinates. This randomizer enables to prevent this situation from happening.
+                
+                #:max_random_distance: 100 #in meters. Each marker coordinate could be altered by this distance in a random direction
+                
+                #:list_container: null #if a string is passed, it will be assumed that it's the id of the <ul> in which you want the list of markers to be included. Define gmaps4rails_sidebar method in your model to customize what you want to be displayed in each <li>
+                
+                #:custom_clusterer_pictures: #vê no site o código para o custom cluster
+
+
+                } 
+            },
+
+          :map_options => { 
+            # container_id:  "map_container",
+            # id:   "map",
+            type: "SATELLITE", # HYBRID, ROADMAP, SATELLITE, TERRAIN
+            :raw => '{ disableDefaultUI: false, scrollwheel: true } ', 
+            :center_on_user => true, 
+            :detect_location => true,
+            :auto_adjust => false,
+            # :center_latitude => 38.6610112, 
+            # :center_longitude => -9.0791227,
+            # disableDoubleClickZoom: false,    
+            # draggable: true,
+            # mapTypeControl:  null, #display the map type dropdown, unless set to false it will be displayed
+            :auto_zoom => true,
+            :zoom => 15,
+            # maxZoom: null, #max zoom level
+            # minZoom: null, #min zoom level 
+            # bounds:  [] adjust map to these limits. Should be [{"lat": , "lng": }, {"lat": , "lng": } ...]
+        }) %> 

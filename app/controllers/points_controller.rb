@@ -4,7 +4,8 @@ class PointsController < ApplicationController
   def index
     @points = Point.all
     @json = Point.all.to_gmaps4rails
-    
+    puts "JSON #{@json}"
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @points }
