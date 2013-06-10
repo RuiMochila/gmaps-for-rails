@@ -7,7 +7,21 @@
                 Gmaps.map.replaceMarkers(data);
             });
         });
+
+    
+        $('#get_zoom').click(function(e){
+            alert(Gmaps.map.map.getZoom());
+            // var bounds = new google.maps.LatLngBounds();
+            // var norte = new google.maps.LatLng(38.7779317, -9.2092897);
+            // var sul = new google.maps.LatLng(37.0179538, -7.930834000000001);
+            // bounds.extend(norte);
+            // Gmaps.map.map.fitBounds(bounds);
+        });    
+
+
+
     });
+
 </script>
 
 <h1>Listing points</h1>
@@ -45,7 +59,7 @@
 <%= link_to 'New Point', new_point_path %>
 
 <button id="refresh_button">Refresh</button>
-
+<button id="get_zoom">Get Map Zoom</button>
 <!-- Helper para mostrar o mapa, passar opções aqui -->
 <%= gmaps(:markers => {
                 :data => @json, 
@@ -76,18 +90,18 @@
             # container_id:  "map_container",
             # id:   "map",
             type: "SATELLITE", # HYBRID, ROADMAP, SATELLITE, TERRAIN
-            :raw => '{ disableDefaultUI: false, scrollwheel: true } ', 
-            :center_on_user => true, 
-            :detect_location => true,
-            :auto_adjust => false,
+            raw: '{ disableDefaultUI: false, scrollwheel: true } ', 
+            center_on_user: true, 
+            detect_location: true,
+            auto_adjust: false,
             # :center_latitude => 38.6610112, 
             # :center_longitude => -9.0791227,
             # disableDoubleClickZoom: false,    
             # draggable: true,
             # mapTypeControl:  null, #display the map type dropdown, unless set to false it will be displayed
-            :auto_zoom => true,
-            :zoom => 15,
+            auto_zoom: true,
+            zoom: 15,
             # maxZoom: null, #max zoom level
-            # minZoom: null, #min zoom level 
-            # bounds:  [] adjust map to these limits. Should be [{"lat": , "lng": }, {"lat": , "lng": } ...]
+            #min_zoom: 5 #min zoom level 
+            #bounds: [{"lat": "38.7779317","lng": "-9.2092897"},{"lat": "37.0179538","lng": "-7.930834000000001"} ] #adjust map to these limits. Should be [{"lat": , "lng": }, {"lat": , "lng": } ...]
         }) %> 
