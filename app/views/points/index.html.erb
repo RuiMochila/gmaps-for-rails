@@ -1,8 +1,7 @@
-<% content_for :scripts do -%>
+<% content_for :scripts do %>
 
 <script type="text/javascript" charset="utf-8" >
     
-
     $(function(){
         $('#refresh_button').click(function(){
             $.getJSON("/points.json", function(data){
@@ -18,14 +17,32 @@
             var mapOptions = {
                 // zoom: 4,
                 // center: new google.maps.LatLng(-33, 151),
-                // mapTypeControl: true,
+                
+                panControl: false,
+                // panControlOptions: {
+                //     position: google.maps.ControlPosition.TOP_RIGHT
+                // },
+
+                mapTypeControl: false,
                 // mapTypeControlOptions: {
                 // style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
                 // },
-                zoomControl: true,
-                zoomControlOptions: {
-                    style: google.maps.ZoomControlStyle.SMALL
-                },
+
+                zoomControl: false,
+                // zoomControlOptions: {
+                //     style: google.maps.ZoomControlStyle.SMALL
+                // },
+
+                scaleControl: false,
+                // scaleControlOptions: {
+                //     position: google.maps.ControlPosition.TOP_LEFT
+                // },
+
+                streetViewControl: false,
+                // streetViewControlOptions: {
+                // position: google.maps.ControlPosition.LEFT_TOP
+                // }
+
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             }
             Gmaps.map.map.setOptions(mapOptions);
@@ -49,26 +66,7 @@
 
 </script>
 
-<script type="text/javascript" charset="utf-8" >
-//     Gmaps.map.callback = function(){
-//         alert("map loaded");
-//         // setTimeout(function() {
-//         //     var markers = Gmaps.map.markers;
-//         //     for(var i = 0; i < markers.length; i++){
-//         //         marker = markers[i];
-//         //         google.maps.event.addListener(marker.serviceObject, 'click', 
-//         //             (function(marker){
-//         //                 return function(){      
-//         //                     alert(marker.id);
-//         //                 }
-//         //             })(marker)
-//         //         )
-//         //     }
-//         // }, 50)
-//     }
-</script>
-
-<% end -%>
+<% end %>
 
 <h1>Listing points</h1>
 
@@ -152,3 +150,58 @@
             #min_zoom: 5 #min zoom level 
             #bounds: [{"lat": "38.7779317","lng": "-9.2092897"},{"lat": "37.0179538","lng": "-7.930834000000001"} ] #adjust map to these limits. Should be [{"lat": , "lng": }, {"lat": , "lng": } ...]
         }) %> 
+
+<% content_for :scripts do %>
+
+<script type="text/javascript" charset="utf-8" >
+    // Isto é evocado quando o mapa é carregado, 
+    // Introduzo opções adicionais que n consegui pela Gem.
+    Gmaps.map.callback = function() {
+        var mapOptions = {
+            disableDefaultUI: true,
+            // zoom: 4,
+            // center: new google.maps.LatLng(-33, 151),
+            
+            panControl: false,
+            // panControlOptions: {
+            //     position: google.maps.ControlPosition.TOP_RIGHT
+            // },
+
+            mapTypeControl: true,
+            // mapTypeControlOptions: {
+            // style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+            // },
+
+            zoomControl: false,
+            // zoomControlOptions: {
+            //     style: google.maps.ZoomControlStyle.SMALL
+            //     position: google.maps.ControlPosition.LEFT_CENTER
+            // },
+
+            scaleControl: false,
+            // scaleControlOptions: {
+            //     position: google.maps.ControlPosition.TOP_LEFT
+            // },
+
+            streetViewControl: false,
+            // streetViewControlOptions: {
+            // position: google.maps.ControlPosition.LEFT_TOP
+            // }
+
+            mapTypeId: google.maps.MapTypeId.HYBRID, //SATTELLITE, ROADMAO
+            // styles: [{
+            //     elementType: "labels",
+            //     stylers: [ { visibility: "on" } ]
+            // }],
+            styles: [{
+                featureType: "road",
+                stylers: [ {visibility: "off"} ]
+            }],
+            minZoom: 5
+            // maxZoom: 15
+        }
+        Gmaps.map.map.setOptions(mapOptions);
+    }
+
+</script>
+<% end %>
