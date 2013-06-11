@@ -1,4 +1,8 @@
+<% content_for :scripts do -%>
+
 <script type="text/javascript" charset="utf-8" >
+    
+
     $(function(){
         $('#refresh_button').click(function(){
             $.getJSON("/points.json", function(data){
@@ -30,13 +34,41 @@
             // var sul = new google.maps.LatLng(37.0179538, -7.930834000000001);
             // bounds.extend(norte);
             // Gmaps.map.map.fitBounds(bounds);
-        });    
+        }); 
+
+
+        $('#show_button').click(function(e) {
+            console.log(Gmaps.map.markers);
+            // Devolve um array de markers, em cada marker posso aceder ao serviceObject, ele tem o __gm_id
+            // Gmaps.map.hideMarker(marker);
+        });
 
 
 
     });
 
 </script>
+
+<script type="text/javascript" charset="utf-8" >
+//     Gmaps.map.callback = function(){
+//         alert("map loaded");
+//         // setTimeout(function() {
+//         //     var markers = Gmaps.map.markers;
+//         //     for(var i = 0; i < markers.length; i++){
+//         //         marker = markers[i];
+//         //         google.maps.event.addListener(marker.serviceObject, 'click', 
+//         //             (function(marker){
+//         //                 return function(){      
+//         //                     alert(marker.id);
+//         //                 }
+//         //             })(marker)
+//         //         )
+//         //     }
+//         // }, 50)
+//     }
+</script>
+
+<% end -%>
 
 <h1>Listing points</h1>
 
@@ -74,6 +106,7 @@
 
 <button id="refresh_button">Refresh</button>
 <button id="get_zoom">Get Map Zoom</button>
+<button id="show_button">Show Markers</button>
 <!-- Helper para mostrar o mapa, passar opções aqui -->
 <%= gmaps(:markers => {
                 :data => @json, 
