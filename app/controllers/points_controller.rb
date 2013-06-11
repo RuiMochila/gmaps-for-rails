@@ -9,6 +9,20 @@ class PointsController < ApplicationController
     @json = Point.all.to_gmaps4rails
     puts "JSON #{@json}"
 
+    # @json2 = Point.all.to_gmaps4rails do |point, marker|
+    # marker.infowindow render_to_string(:partial => "/points/infowindow", :locals => { :object => point})
+    # # marker.picture({
+    # #               :picture => "http://www.blankdots.com/img/github-32x32.png",
+    # #               :width   => 32,
+    # #               :height  => 32
+    # #              })
+    # marker.title   "i'm the title"
+    # marker.sidebar "i'm the sidebar"
+    # marker.json({ :id => point.id, description: point.description, lat: point.latitude, lng: point.longitude })
+    # end
+
+    # puts "JSON2 #{@json2}"
+
     respond_with @json
     # respond_to do |format|
     #   format.html # index.html.erb

@@ -188,7 +188,7 @@
             // position: google.maps.ControlPosition.LEFT_TOP
             // }
 
-            mapTypeId: google.maps.MapTypeId.HYBRID, //SATTELLITE, ROADMAO
+            mapTypeId: google.maps.MapTypeId.HYBRID, //SATTELLITE, ROADMAP, HYBRID
             // styles: [{
             //     elementType: "labels",
             //     stylers: [ { visibility: "on" } ]
@@ -200,8 +200,14 @@
             minZoom: 5
             // maxZoom: 15
         }
+
+        
+
         Gmaps.map.map.setOptions(mapOptions);
         Gmaps.map.map.setTilt(45);
+        google.maps.event.addListener(Gmaps.map.map,'click',function(event) {
+            console.log(event.latLng.lat() + ', ' + event.latLng.lng());
+        });
     }
 
 </script>
