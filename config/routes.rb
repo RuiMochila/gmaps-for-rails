@@ -2,7 +2,8 @@ Gmaps::Application.routes.draw do
   resources :points
 
   # root :to => 'points#index'
-  root :to => 'examples#geocode'
+  # root :to => 'examples#geocode'
+  root :to => "examples#location"
   match 'gmaps' => "points#index"
   match 'location' => "examples#location"
 
