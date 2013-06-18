@@ -229,10 +229,13 @@
             });
 
             //Add listener to marker for reverse geocoding
-            google.maps.event.addListener(marker, 'drag', function() {
+            //'drag'
+            google.maps.event.addListener(marker, 'click', function() {
                 geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
                     if (status == google.maps.GeocoderStatus.OK) {
-                        console.log(results.inspect);
+                        for (var i = results.length-1; i >= 0; i--) {
+                            console.log(results[i]);
+                        }
                         if (results[0]) {
                             $('#address').val(results[0].formatted_address);
                             $('#latitude').val(marker.getPosition().lat());
