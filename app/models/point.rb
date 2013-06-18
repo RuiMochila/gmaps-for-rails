@@ -1,7 +1,36 @@
 class Point < ActiveRecord::Base
   attr_accessible :address, :gmaps, :latitude, :longitude, :name, :description
 
-  acts_as_gmappable :process_geocoding => false
+  acts_as_gmappable :process_geocoding => true
+  
+  ####### GEOCODER
+  # #Simple geocoding by street addres
+  # geocoded_by :address
+  # after_validation :geocode
+
+  # #Only geocode when attributes change
+  # geocoded_by :address
+  # after_validation :geocode,
+  # :if => lambda{ |obj| obj.address_changed? }
+
+  # #Simple geocoding by ip addres
+  # geocoded_by :ip_address,
+  # :latitude => :lat, :longitude => :lon
+  # after_validation :geocode
+  #######
+  #####
+  # reverse_geocoded_by :latitude, :longitude do |obj,results|
+  #   results.each do |result| 
+  #     puts "Result #{result.inspect}"
+  #   end
+  #   # if geo = results.first
+  #   #   obj.city    = geo.city
+  #   #   obj.zipcode = geo.postal_code
+  #   #   obj.country = geo.country_code
+  #   # end
+  # end
+  # after_validation :reverse_geocode
+  #####
 
 	def gmaps4rails_address
 	#describe how to retrieve the address from your model, if you use directly a db column, you can dry your code, see wiki

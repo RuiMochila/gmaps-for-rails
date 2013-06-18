@@ -1,7 +1,9 @@
 Gmaps::Application.routes.draw do
   resources :points
 
-  root :to => 'points#index'
+  # root :to => 'points#index'
+  root :to => 'examples#geocode'
+  match 'gmaps' => "points#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,7 +1,10 @@
 <% content_for :scripts do %>
 
 <script type="text/javascript" charset="utf-8" >
-    
+    ///
+    var geocoder;
+    var marker;
+    ///
     $(function(){
         $('#refresh_button').click(function(){
             $.getJSON("/points.json", function(data){
@@ -105,6 +108,13 @@
 <button id="refresh_button">Refresh</button>
 <button id="get_zoom">Get Map Zoom</button>
 <button id="show_button">Show Markers</button>
+
+<label>Address: </label>
+<input id="address"  type="text"/>
+<label>latitude: </label>
+<input id="latitude" type="text"/><br/>
+<label>longitude: </label>
+<input id="longitude" type="text"/>
 <!-- Helper para mostrar o mapa, passar opções aqui -->
 <%= gmaps(:markers => {
                 :data => @json, 
@@ -157,6 +167,7 @@
     // Isto é evocado quando o mapa é carregado, 
     // Introduzo opções adicionais que n consegui pela Gem.
     Gmaps.map.callback = function() {
+        
         var mapOptions = {
             disableDefaultUI: true,
             // zoom: 4,
@@ -201,13 +212,41 @@
             // maxZoom: 15
         }
 
-        
+
+        ////
+        geocoder = new google.maps.Geocoder();
+        ////
 
         Gmaps.map.map.setOptions(mapOptions);
         Gmaps.map.map.setTilt(45);
         google.maps.event.addListener(Gmaps.map.map,'click',function(event) {
             console.log(event.latLng.lat() + ', ' + event.latLng.lng());
+            ///////
+            marker = new google.maps.Marker({
+                map: Gmaps.map.map,
+                draggable: true,
+                position: new google.maps.LatLng(event.latLng.lat(),event.latLng.lng())
+            });
+
+            //Add listener to marker for reverse geocoding
+            google.maps.event.addListener(marker, 'drag', function() {
+                geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        console.log(results.inspect);
+                        if (results[0]) {
+                            $('#address').val(results[0].formatted_address);
+                            $('#latitude').val(marker.getPosition().lat());
+                            $('#longitude').val(marker.getPosition().lng());
+                        }
+                    }
+                });
+            });
+            ///////
         });
+
+
+
+
     }
 
 </script>
