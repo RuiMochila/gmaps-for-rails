@@ -1,18 +1,31 @@
 
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+<script type="text/javascript" src="http://www.google.com/jsapi?key=AAIzaSyDzX-mtuXU7g7vLu69ZAZSyLCzQYlwRzTs"></script>
+
 <script type="text/javascript">
 var map;
 var infowindow;
+var me;
 
 $(document).ready(function(){
-    initialize();
-    console.log("ready");
+  initialize();
 });
+
+
 
 //https://developers.google.com/maps/documentation/javascript/places
 function initialize() {
-  console.log("Entrou no initialize do mapa");
-  var me = new google.maps.LatLng(38.725299, -9.150036000000002);
+  me = new google.maps.LatLng(38.725299, -9.150036000000002);
+
+  // if (navigator.geolocation) {
+  //   navigator.geolocation.getCurrentPosition(function(loc){
+  //     me = new google.maps.LatLng(loc.coords.latitude, loc.coords.longitude);
+  //   }); 
+  // }else {
+  //   //n deu
+  //   me = new google.maps.LatLng(38.725299, -9.150036000000002);
+
+  // }
 
   var mapOptions = {
     mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -64,4 +77,4 @@ function createMarker(place) {
 </script>
 
 
-<div id="map-canvas" style="width: 100%;height: 300px;"></div>
+<div id="map-canvas" style="width: 100%;height: 400px;"></div>
