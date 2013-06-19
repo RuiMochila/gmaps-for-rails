@@ -6,7 +6,7 @@ Gmaps::Application.routes.draw do
   root :to => "examples#location"
   match 'gmaps' => "points#index"
   match 'location' => "examples#location"
-
+  match 'places' => "examples#places"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

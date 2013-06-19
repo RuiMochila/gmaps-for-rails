@@ -1,9 +1,13 @@
-class ExamplesController < ActionController::Base
+class ExamplesController < ApplicationController
   def geocode
   	
   end
 
   def location
+  	
+  end
+
+  def places
   	
   end
 end
