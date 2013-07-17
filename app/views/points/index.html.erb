@@ -5,6 +5,8 @@
     var geocoder;
     var marker;
     ///
+
+
     $(function(){
         $('#refresh_button').click(function(){
             $.getJSON("/points.json", function(data){
@@ -205,6 +207,8 @@
             // }],
             styles: [{
                 featureType: "road",
+                stylers: [ {visibility: "off"} ],
+                featureType: "label",
                 stylers: [ {visibility: "off"} ]
             }],
             minZoom: 5
